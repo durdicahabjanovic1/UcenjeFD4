@@ -5,8 +5,6 @@ import { GrValidate } from "react-icons/gr"
 import { FcApproval, FcDisapprove } from "react-icons/fc"
 import { NumericFormat } from "react-number-format"
 import FormatDatuma from "../../components/FormatDatuma"
-import { RouteNames } from "../../constants"
-import { Link } from "react-router-dom"
 
 
 export default function SmjerPregled() {
@@ -29,11 +27,6 @@ export default function SmjerPregled() {
 
     return (
         <>
-        <Link to={RouteNames.SMJEROVI_DODAJ}>
-           Dodavanje novog smjera
-        
-        </Link>
-    
 
             <Table hover striped bordered>
                 <thead>

@@ -6,7 +6,6 @@ import { IME_APLIKACIJE, RouteNames } from './constants'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import SmjerPregled from './pages/smjerovi/SmjerPregled'
-import SmjerNovi from './pages/smjerovi/SmjerNovi'
 
 function App() {
 
@@ -18,7 +17,6 @@ function App() {
           <Routes>
             <Route path={RouteNames.HOME} element={<Home />} />
             <Route path={RouteNames.SMJEROVI} element={<SmjerPregled />} />
-            <Route path={RouteNames.SMJEROVI_DODAJ} element={<SmjerNovi />} />
           </Routes>
         </Container>
         <hr />
