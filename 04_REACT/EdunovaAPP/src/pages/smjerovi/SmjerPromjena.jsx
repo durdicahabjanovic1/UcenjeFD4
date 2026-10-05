@@ -8,29 +8,25 @@ import { useEffect, useState } from "react";
 export default function SmjerPromjena() {
 
     const navigate = useNavigate()
-        const params = useParams()
-        const [smjer, setSmjer] = useState({})
-        const [aktivan, setAktivan] = useState(false)
-    
+    const params = useParams()
+    const [smjer, setSmjer] = useState({})
+    const [aktivan, setAktivan] = useState(false)
 
     async function ucitajSmjer(){
         await SmjerService.getBySifra(params.sifra).then((odgovor)=>{
-            const s = odgovor.data
-            s.datumPokretanja = s.datumPokretanja.substring(0,10)
-            setSmjer(s)
-            setAktivan(s.aktivan)
-            
+           const s = odgovor.data
+           s.datumPokretanja = s.datumPokretanja.substring(0,10)
+           setSmjer(s)
+           setAktivan(s.aktivan)
         })
-
-
     }
 
     useEffect(()=>{
         ucitajSmjer()
     },[])
 
-    async function dodaj(smjer){
-        await SmjerService.dodaj(smjer).then(()=>{
+    async function promijeni(smjer){
+        await SmjerService.promijeni( params.sifra,smjer).then(()=>{
             navigate(RouteNames.SMJEROVI)
         })
     }
@@ -38,12 +34,12 @@ export default function SmjerPromjena() {
     function obradiSubmit(e){ // e je event
         e.preventDefault() // nemoj odraditi submit
         const podaci = new FormData(e.target)
-        dodaj({
+        promijeni({
             naziv: podaci.get('naziv'),
             trajanje: parseInt(podaci.get('trajanje')),
             cijena: parseFloat(podaci.get('cijena')),
             datumPokretanja: new Date(podaci.get('datumPokretanja')).toISOString(),
-            aktivan: podaci.get('aktivan') === 'on'
+            aktivan: aktivan
         })
     }
 
@@ -51,7 +47,7 @@ export default function SmjerPromjena() {
     return (
         <>
             <h3>
-                Promjena  smjera
+                Promjena smjera
             </h3>
 
             <Form onSubmit={obradiSubmit}>
@@ -84,7 +80,6 @@ export default function SmjerPromjena() {
                     <Form.Check label="Aktivan" name="aktivan" 
                     checked={aktivan}
                     onChange={(e)=>{setAktivan(e.target.checked)}}/>
-                    
                 </Form.Group>
 
 
@@ -97,7 +92,7 @@ export default function SmjerPromjena() {
                     </Col>
                     <Col>
                         <Button type="submit" variant="success">
-                            Dodaj
+                        Promjeni
                         </Button>
                     </Col>
                 </Row>

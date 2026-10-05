@@ -23,7 +23,7 @@ export default function SmjerPregled() {
     }
 
     useEffect(() => {
-        console.log('Došao na pregled smjerova')
+        //console.log('Došao na pregled smjerova')
         ucitajSmjerove()
     }, [])
 
